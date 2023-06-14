@@ -40,6 +40,10 @@ namespace sn {
 		Shader* mShader;
 		graphics::ConstantBuffer* mConstantBuffer;
 		Vector4 mConstantBufferPos;
+		//struct mConstantBuffer {
+		//	Vector4 mPos;
+		//	Vector4 mScale;
+		//} mConstantBufferSend;
 	private:
 		Vector3 mPos;
 		Vector4 mColor;

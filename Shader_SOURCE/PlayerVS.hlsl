@@ -22,6 +22,8 @@ cbuffer Transform : register(b1)
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
+
+    In.Pos *= Pos.z;
     
     Out.Pos = float4(In.Pos, 1.0f);
     Out.Pos.x += Pos.x; //  -> 상수버퍼를 통해서 이 데이터가 넘와야한다.

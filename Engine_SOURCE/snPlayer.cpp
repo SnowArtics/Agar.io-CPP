@@ -15,11 +15,12 @@ namespace sn {
 		, mMesh(nullptr)
 		, mShader(nullptr)
 		, mConstantBuffer(nullptr)
-		, mConstantBufferPos(Vector4(0.0f, 0.0f, 0.0f, 0.0f))
+		, mConstantBufferPos(Vector4(0.0f, 0.0f, 1.0f, 0.0f))
 		, mPos(Vector3(0.0f, 0.0f, 0.0f))
 		, mColor(Vector4(0.3137f, 0.7373f, 0.8745f, 1.0f))
 		, mScale(Vector3(0.1f, 0.1f, 0.0f))
 		, mScene(nullptr)
+		//, mConstantBufferSend{}
 	{
 	}
 
@@ -103,32 +104,29 @@ namespace sn {
 	void Player::Update()
 	{
 		if (sn::Input::GetKey(sn::eKeyCode::W)) {
-			mConstantBufferPos += Vector4(0.0f, 0.2f, 0.0f, 1.0f) * sn::Time::DeltaTime();
+			mConstantBufferPos += Vector4(0.0f, 0.2f*1.6f, 0.0f, 0.0f) * sn::Time::DeltaTime();
 			mPos.x = mConstantBufferPos.x;
 			mPos.y = mConstantBufferPos.y;
-			mPos.z = mConstantBufferPos.z;
 		}
 		if (sn::Input::GetKey(sn::eKeyCode::S)) {
-			mConstantBufferPos += Vector4(0.0f, -0.2f, 0.0f, 1.0f) * sn::Time::DeltaTime();
+			mConstantBufferPos += Vector4(0.0f, -0.2f*1.6f, 0.0f, 0.0f) * sn::Time::DeltaTime();
 			mPos.x = mConstantBufferPos.x;
 			mPos.y = mConstantBufferPos.y;
-			mPos.z = mConstantBufferPos.z;
 		}
 		if (sn::Input::GetKey(sn::eKeyCode::A)) {
-			mConstantBufferPos += Vector4(-0.2f, 0.0f, 0.0f, 1.0f) * sn::Time::DeltaTime();
+			mConstantBufferPos += Vector4(-0.2f*0.9f, 0.0f, 0.0f, 0.0f) * sn::Time::DeltaTime();
 			mPos.x = mConstantBufferPos.x;
 			mPos.y = mConstantBufferPos.y;
-			mPos.z = mConstantBufferPos.z;
 		}
 		if (sn::Input::GetKey(sn::eKeyCode::D)) {
-			mConstantBufferPos += Vector4(0.2f, 0.0f, 0.0f, 1.0f) * sn::Time::DeltaTime();
+			mConstantBufferPos += Vector4(0.2f*0.9f, 0.0f, 0.0f, 0.0f) * sn::Time::DeltaTime();
 			mPos.x = mConstantBufferPos.x;
 			mPos.y = mConstantBufferPos.y;
-			mPos.z = mConstantBufferPos.z;
 		}
 
 		mConstantBuffer->SetData(&mConstantBufferPos);
 		mConstantBuffer->Bind(graphics::eShaderStage::VS);
+		//mConstantBufferPos = Vector4(mConstantBufferPos.x, mConstantBufferPos.y, 1.0f, mConstantBufferPos.w);
 	}
 
 	void Player::LateUpdate()
@@ -146,5 +144,6 @@ namespace sn {
 	{
 		int objectNum = mScene->FindObjectIndex(_objectName);
 		mScene->DeleteObject(objectNum);
+		mConstantBufferPos = Vector4(mConstantBufferPos.x, mConstantBufferPos.y, mConstantBufferPos.z += 0.2f, mConstantBufferPos.w);
 	}
 }
