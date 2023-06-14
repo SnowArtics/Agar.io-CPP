@@ -122,8 +122,8 @@ namespace sn {
 			//x = 0.108f;
 			//y = 0.192f;
 			if (abs(x) < 0.08f && abs(x) > 0.f && abs(y) < 0.15f && abs(y) > 0.f) {
-				((Player*)mGameObjects[0])->OnCollision(mGameObjects[i]->GetName());
 				((Item*)mGameObjects[i])->OnCollision(mGameObjects[0]->GetName());
+				((Player*)mGameObjects[0])->OnCollision(mGameObjects[i]->GetName());
 			}
 		}
 	}

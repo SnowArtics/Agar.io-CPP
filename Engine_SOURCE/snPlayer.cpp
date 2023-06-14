@@ -18,7 +18,7 @@ namespace sn {
 		, mConstantBufferPos(Vector4(0.0f, 0.0f, 1.0f, 0.0f))
 		, mPos(Vector3(0.0f, 0.0f, 0.0f))
 		, mColor(Vector4(0.3137f, 0.7373f, 0.8745f, 1.0f))
-		, mScale(Vector3(0.1f, 0.1f, 0.0f))
+		, mScale(Vector3(0.1f, 0.1f, 1.0f))
 		, mScene(nullptr)
 		//, mConstantBufferSend{}
 	{
@@ -124,6 +124,8 @@ namespace sn {
 			mPos.y = mConstantBufferPos.y;
 		}
 
+		mConstantBufferPos.z = mScale.z;
+
 		mConstantBuffer->SetData(&mConstantBufferPos);
 		mConstantBuffer->Bind(graphics::eShaderStage::VS);
 		//mConstantBufferPos = Vector4(mConstantBufferPos.x, mConstantBufferPos.y, 1.0f, mConstantBufferPos.w);
@@ -144,6 +146,6 @@ namespace sn {
 	{
 		int objectNum = mScene->FindObjectIndex(_objectName);
 		mScene->DeleteObject(objectNum);
-		mConstantBufferPos = Vector4(mConstantBufferPos.x, mConstantBufferPos.y, mConstantBufferPos.z += 0.2f, mConstantBufferPos.w);
+		mScale.z += 0.01f;
 	}
 }
